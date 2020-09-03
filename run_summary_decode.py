@@ -35,8 +35,10 @@ FLAGS = tf.app.flags.FLAGS
 #data_root="D:\python project me\data\my_point_net/finished_files/test.bin"
 #root="/home/ddd/data/news_data/finished_files"
 #data_root="/home/ddd/data/news_data/finished_files/val.bin"
-root="/home/ddd/data/cnndailymail3/finished_files"
-data_root="/home/ddd/data/cnndailymail3/finished_files/test.bin"
+#root="/home/ddd/data/cnndailymail3/finished_files"
+#data_root="/home/ddd/data/cnndailymail3/finished_files/test.bin"
+root="/home/ddr/data3/ad20/finished_files"
+data_root="/home/ddr/data3/ad20/finished_files/train.bin"
 # Where to find data
 tf.app.flags.DEFINE_string('data_path', data_root, 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
 tf.app.flags.DEFINE_string('vocab_path', root+'/'+"vocab", 'Path expression to text vocabulary file.')
@@ -72,12 +74,12 @@ tf.app.flags.DEFINE_float('max_grad_norm', 2.0, 'for gradient clipping')
 tf.app.flags.DEFINE_boolean('pointer_gen', True, 'If True, use pointer-generator model. If False, use baseline model.')
 
 # Coverage hyperparameters
-tf.app.flags.DEFINE_boolean('coverage', False, 'Use coverage mechanism. Note, the experiments reported in the ACL paper train WITHOUT coverage until converged, and then train for a short phase WITH coverage afterwards. i.e. to reproduce the results in the ACL paper, turn this off for most of training then turn on for a short phase at the end.')
+tf.app.flags.DEFINE_boolean('coverage', True, 'Use coverage mechanism. Note, the experiments reported in the ACL paper train WITHOUT coverage until converged, and then train for a short phase WITH coverage afterwards. i.e. to reproduce the results in the ACL paper, turn this off for most of training then turn on for a short phase at the end.')
 tf.app.flags.DEFINE_float('cov_loss_wt', 1.0, 'Weight of coverage loss (lambda in the paper). If zero, then no incentive to minimize coverage loss.')
 
 # Utility flags, for restoring and changing checkpoints
-tf.app.flags.DEFINE_boolean('convert_to_coverage_model', False, 'Convert a non-coverage model to a coverage model. Turn this on and run in train mode. Your current training model will be copied to a new version (same name with _cov_init appended) that will be ready to run with coverage flag turned on, for the coverage training stage.')
-tf.app.flags.DEFINE_boolean('restore_best_model', False, 'Restore the best model in the eval/ dir and save it in the train/ dir, ready to be used for further training. Useful for early stopping, or if your training checkpoint has become corrupted with e.g. NaN values.')
+tf.app.flags.DEFINE_boolean('convert_to_coverage_model', True, 'Convert a non-coverage model to a coverage model. Turn this on and run in train mode. Your current training model will be copied to a new version (same name with _cov_init appended) that will be ready to run with coverage flag turned on, for the coverage training stage.')
+tf.app.flags.DEFINE_boolean('restore_best_model', True, 'Restore the best model in the eval/ dir and save it in the train/ dir, ready to be used for further training. Useful for early stopping, or if your training checkpoint has become corrupted with e.g. NaN values.')
 
 # Debugging. See https://www.tensorflow.org/programmers_guide/debugger
 tf.app.flags.DEFINE_boolean('debug', False, "Run in tensorflow's debug mode (watches for NaN/inf values)")
